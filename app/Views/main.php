@@ -40,7 +40,7 @@
 </head>
 
 <body>
-    <?php  echo view('layouts/navbar.php'); ?>
+    <?php  echo view('layouts/navbar.php'); ?>   
     <?php  echo view($layouts); ?>
 
     <script src="<?=site_url('assets/js/jquery-2.0.0.min.js')?>" type="text/javascript"></script>
