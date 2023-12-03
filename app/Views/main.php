@@ -48,6 +48,7 @@
     <script src="<?=site_url('assets/js/OverlayScrollbars.js')?>" type="text/javascript"></script>
     <script>
         $(function() {
+            console.log("ready!");
             $("#cart").height(445);
             $("#cart").overlayScrollbars({});
         });
