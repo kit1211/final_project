@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@100;200;300;500;600;700;800&display=swap');
+
+.navv  {
+    background-color: #1e212b; /* สีส้ม */
+}
+
+body{
+    background-color: #EEF5FF; /* สีส้ม */
+}
+
+.th-100 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 100;
+}
+
+.th-200 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 200;
+}
+
+.th-300 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 300;
+}
+
+.th-400 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 400;
+}
+
+.th-500 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+}
+
+.th-600 {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    font-weight: bold;
+}
+
+
+.swal2-show {
+    font-family: 'Sarabun', sans-serif;
+
+}
