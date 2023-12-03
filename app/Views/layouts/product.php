@@ -149,7 +149,7 @@
                 newRow.innerHTML = `
                     <th class="w-10">
                         <div class="d-flex align-items-center">
-                            <img class="rounded" src="<?=base_url('uploads/')?>${product.pImage}" width="75">
+                            <img class="rounded" src="<?=base_url('public/uploads/')?>${product.pImage}" width="75">
                         </div>
                     </th>
                     <td>

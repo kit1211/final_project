@@ -33,7 +33,7 @@
                         <!-- <div class="col-md-3">
                                 <figure class="card card-product">
                                     <div class="img-wrap">
-                                        <img src="assets/dessert/dess_1.png">
+                                        <img src="public/assets/dessert/dess_1.png">
                                     </div>
                                     <figcaption class="info-wrap">
                                         <h5 class="card-title th-300">Good item name</h5>
@@ -156,7 +156,7 @@
                 <tr>
                     <td>
                         <figure class="media">
-                            <div class="img-wrap"><img src="/uploads/${i.pImage}" class="img-thumbnail img-xs"></div>
+                            <div class="img-wrap"><img src="public//uploads/${i.pImage}" class="img-thumbnail img-xs"></div>
                             <figcaption class="media-body">
                                 <h6 class="title text-truncate">${i.pName}</h6>
                             </figcaption>
@@ -240,7 +240,7 @@
                     newRow.innerHTML = `
                         <figure class="card card-product" data-product-id="${item.pId}" data-product-name="${item.pName}" data-product-price="${item.pPrice}">
                             <div class="img-wrap">
-                                <img src="uploads/${item.pImage}">
+                                <img src="public/uploads/${item.pImage}">
                             </div>
                             <figcaption class="info-wrap">
                                 <h5 class="card-title th-300">${item.pName}</h5>

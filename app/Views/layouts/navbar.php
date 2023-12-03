@@ -8,7 +8,7 @@
             <div class="col-lg-6 col-sm-6">
                 <div class="brand-wrap">
                     <a href="<?=base_url()?>"><h2 class="logo-text th-600 text-white">DESSLAND</h2></a>
-                    <img class="logo" src="<?=base_url('assets/delicious.webp');?>">
+                    <img class="logo" src="<?=base_url('public/assets/delicious.webp');?>">
                     <?php if($isLoggedIn){ ?>
                     <!-- <a href="<?=base_url()?>" class="text-white pl-5 th-400"><i class="bi bi-house"></i> Dashboard</a> -->
                     <a href="<?=base_url()?>" class="text-white pl-3 th-400"><i class="bi bi-receipt"></i> POS</a>
@@ -37,7 +37,7 @@
                     <div class="widget-header dropdown">
                         <a href="#" class="ml-1 icontext" data-toggle="dropdown" data-offset="20,10">
                             <?php if($isLoggedIn){ ?>
-                            <img src="<?=base_url('assets/User.png')?>" class="avatar" alt="">
+                            <img src="<?=base_url('public/assets/User.png')?>" class="avatar" alt="">
                             <?php }else{ ?>
                             <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" class="avatar" alt="">
                             <?php } ?>
