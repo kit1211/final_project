@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'hostname'     => 'db-mysql-sgp1-21549-do-user-4355721-0.c.db.ondigitalocean.com',
+        'username'     => 'doadmin',
+        'password'     => 'AVNS_vmyULIzh9taAkhdSvRY',
+        'database'     => 'final_project',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -41,7 +41,7 @@ class Database extends Config
         'compress'     => false,
         'strictOn'     => false,
         'failover'     => [],
-        'port'         => 3306,
+        'port'         => 25060,
         'numberNative' => false,
     ];
 
