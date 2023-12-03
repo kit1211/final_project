@@ -7,11 +7,11 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-sm-6">
                 <div class="brand-wrap">
-                    <a href="<?=base_url()?>"><h2 class="logo-text th-600 text-white">DESSLAND</h2></a>
+                    <a href="<?=base_url('/home')?>"><h2 class="logo-text th-600 text-white">DESSLAND</h2></a>
                     <img class="logo" src="<?=base_url('public/assets/delicious.webp');?>">
                     <?php if($isLoggedIn){ ?>
                     <!-- <a href="<?=base_url()?>" class="text-white pl-5 th-400"><i class="bi bi-house"></i> Dashboard</a> -->
-                    <a href="<?=base_url()?>" class="text-white pl-3 th-400"><i class="bi bi-receipt"></i> POS</a>
+                    <a href="<?=base_url('home')?>" class="text-white pl-3 th-400"><i class="bi bi-receipt"></i> POS</a>
                     <a href="<?=base_url('home/customer')?>" class="text-white pl-3 th-400"><i class="bi bi-people"></i> จัดการลูกค้า</a>
                     <a href="<?=base_url('home/product')?>" class="text-white pl-3 th-400"><i class="bi bi-box-seam"></i> จัดการสินค้า</a>
                     <!-- <div class="widget-header">
