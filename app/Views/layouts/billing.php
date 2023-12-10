@@ -15,7 +15,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="invoice-title">
-                            <h4 class="float-end font-size-15">Invoice <span id="inVoice">.....</span></h4>
+                            <div class="d-flex justify-content-between">
+                                <div class="p-2 bd-highlight">
+                                    <h4 class="float-end font-size-15">Invoice <span id="inVoice">กำลังโหลด..</span></h4>
+                                </div>
+                                <div class="p-2 bd-highlight">
+                                    <h4 class="float-end font-size-15">Date: <span id="dateInvoice">กำลังโหลด..</span></h4>
+                                </div>
+                            </div>
+                            <hr>
                             <div class="mb-4">
                                 <h2 class="mb-1 font-weight-bold">DESSLAND</h2>
                             </div>
@@ -32,10 +40,10 @@
                             <div class="col-sm-6">
                                 <div class="text-muted">
                                     <h5 class="font-size-16 mb-3">Billed To:</h5>
-                                    <h5 class="font-size-15 mb-2 font-weight-bold" id="cName">Preston Miller</h5>
-                                    <p class="mb-1 text-muted" id="cAddress">4068 Post Avenue Newfolden, MN 56738</p>
-                                    <p class="mb-1" id="cMail">PrestonMiller@armyspy.com</p>
-                                    <p id="cPhone">001-234-5678</p>
+                                    <h5 class="font-size-15 mb-2 font-weight-bold" id="cName">Guest</h5>
+                                    <p class="mb-1 text-muted" id="cAddress">กำลังโหลด..</p>
+                                    <p class="mb-1" id="cMail">กำลังโหลด..</p>
+                                    <p id="cPhone">กำลังโหลด..</p>
                                 </div>
                             </div>
                         </div>
@@ -138,17 +146,17 @@
 
             const products = response.data;
             const customerCode = products[0].bCustomerCode;
+            document.getElementById("dateInvoice").innerHTML = products[0].bDateInvoice;
 
             axios.post('<?= base_url('api/getCustomerBillDetail') ?>', { customer: customerCode })
             .then(response => {
                 const detail = response.data.data[0];
-                console.log(detail);
-                document.getElementById("cName").innerHTML = 'Dear Sir. ' + detail.cFname + ' ' + detail.cLname;
-                document.getElementById("cAddress").innerHTML = detail.cAddress;
-                document.getElementById("cMail").innerHTML = detail.cEmail;
-                document.getElementById("cPhone").innerHTML = detail.cPhone;
-                return;
-                
+                if(detail){
+                    document.getElementById("cName").innerHTML = 'Dear Sir. ' + detail.cFname + ' ' + detail.cLname;
+                    document.getElementById("cAddress").innerHTML = detail.cAddress;
+                    document.getElementById("cMail").innerHTML = detail.cEmail;
+                    document.getElementById("cPhone").innerHTML = detail.cPhone;
+                }
             })
             .catch(error => {
                 console.error('There was an error!', error);

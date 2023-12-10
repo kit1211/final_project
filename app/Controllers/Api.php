@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use CodeIgniter\I18n\Time;
     /* 
         class Api extends BaseController  คือการสืบทอดคุณสมบัติของ BaseController ไปยังคลาส Api โดยคลาส Api จะสามารถเรียกใช้คุณสมบัติของ BaseController ได้ทั้งหมด
         ตัวอย่าง คลาส Api สามารถเรียกใช้คุณสมบัติของ BaseController ได้ดังนี้
@@ -86,8 +87,7 @@ class Api extends BaseController {
         }
     }
 
-    public function editCustomer()
-    {
+    public function editCustomer(){
         $json = $this->request->getJSON();
         $id         = $json->id; 
         $fname      = $json->fname; 
@@ -207,26 +207,31 @@ class Api extends BaseController {
     }
     
     public function checkOut(){
-        $json = $this->request->getJSON();
-        $json = json_decode(json_encode($json), true);
-        $token = gen_uuid();
-        $billCode = strtoupper(genInvoice());
-        foreach ($json['data'] as $key => $value) {
-            $this->db->table('billing')->insert([
-               'bProductName'       => $value['pName'],
-               'bInvoiceNumber'     => $billCode,
-               'bQuantity'          => $value['pQty'],
-               'bItemPrice'         => $value['pPrice'],
-               'bSubTotalRow'       => $value['pPrice'] * $value['pQty'],
-               'bVat'               => $value['pPrice'] * 0.07,
-               'bTotal'             => $value['pPrice'] * $value['pQty'] * (1 + 0.07),
-               'bCustomerCode'      => $json['customer'] ?? null,
-               'bCreateBy'          => $this->session->get('username'),
-               'bCreateAt'          => time(),
-               'bTokenBill'         => $token,
-            ]);
+        $json           = $this->request->getJSON();
+        $json           = json_decode(json_encode($json), true);
+        $token          = gen_uuid();
+        $billCode       = strtoupper(genInvoice());
+        try {
+            foreach ($json['data'] as $key => $value) {
+                $this->db->table('billing')->insert([
+                   'bProductName'       => $value['pName'],
+                   'bInvoiceNumber'     => $billCode,
+                   'bQuantity'          => $value['pQty'],
+                   'bItemPrice'         => $value['pPrice'],
+                   'bSubTotalRow'       => $value['pPrice'] * $value['pQty'],
+                   'bVat'               => $value['pPrice'] * 0.07,
+                   'bTotal'             => $value['pPrice'] * $value['pQty'] * (1 + 0.07),
+                   'bCustomerCode'      => $json['customer'] ?? null,
+                   'bDateInvoice'       => $json['dateInoive'],
+                   'bCreateBy'          => $this->session->get('username'),
+                   'bCreateAt'          => time(),
+                   'bTokenBill'         => $token,
+                ]);
+            }
+            return json_encode(['status' => 'success', 'msg' => 'การเพิ่มสินค้าเสร็จสิ้น', 'billUrl' => $token]);
+        } catch (\Throwable $th) {
+            return json_encode(['status' => 'error', 'msg' => $th->getMessage()]);
         }
-        return json_encode(['status' => 'success', 'msg' => 'การเพิ่มสินค้าเสร็จสิ้น', 'billUrl' => $token]);
     }
 
 
@@ -255,4 +260,8 @@ class Api extends BaseController {
         return json_encode(['status' => 'success', 'data' => $builder]);
     }
 
+    public function dateToUnix($value){
+        $date = Time::createFromFormat('d/m/Y', $value, 'GMT');
+        return $date->getTimestamp();
+    }
 }

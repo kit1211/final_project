@@ -69,7 +69,14 @@
                     </span>
                 </div>
                 <!-- result price -->
-                <div class="box">
+                <div class="box th-400">
+                    <dl class="dlist-align items-center">
+                        <dt >วันที่:</dt>
+                        <dd class="text-right">
+                            <input type="text" class="form-control"  id="dateInput"  placeholder="กรุณาเลือกวันที่" >
+                        </dd>
+                    </dl>
+                    <hr>
                     <dl class="dlist-align">
                         <dt>Sub Total:</dt>
                         <dd class="text-right" id="sub_total">0 THB</dd>
@@ -98,6 +105,13 @@
 </section>
 
 <script>
+    $(function () {
+        $('#dateInput').datepicker({
+            format: "dd/mm/yyyy",
+            dateFormat: "dd/mm/yy"
+        });
+    });
+
     const datax = localStorage.getItem("myObject");
     const parsedData = JSON.parse(datax);
     // parsedData.forEach(function(itemx, index) {
@@ -220,6 +234,7 @@
     function removeAll() {
         clientCart.splice(0, clientCart.length);
         reloadTable();
+        document.getElementById("dateInput").value = '';
     }
 
     function getProductPos($productType) {
@@ -236,7 +251,7 @@
                     }
 
                     var newRow = document.createElement("div");
-                    newRow.className = "col-md-3";
+                    newRow.className = "col-12 col-md-6 col-lg-3";
                     newRow.innerHTML = `
                         <figure class="card card-product" data-product-id="${item.pId}" data-product-name="${item.pName}" data-product-price="${item.pPrice}">
                             <div class="img-wrap">
@@ -270,6 +285,15 @@
             return;
         }
 
+        // dateInput
+        if ($('#dateInput').val() == '') {
+            Swal.fire({
+                icon: 'error',
+                text: 'กรุณาเลือกวันที่',
+            });
+            return;
+        }
+
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -278,6 +302,7 @@
             buttonsStyling: false
         });
 
+        // console.log($('#dateInput').val());
         swalWithBootstrapButtons.fire({
             text: "คุณต้องการคิดเงินใช่ไหม?",
             icon: "warning",
@@ -302,7 +327,7 @@
                     if (result.isConfirmed) {
                         const { data } =  await axios.post('<?= base_url('api/checkCustomerCode') ?>', { customer: result.value });
                         if(data.status == 'success'){
-                            const { data } =  await axios.post('<?= base_url('api/checkOut') ?>', { data: clientCart, customer: result.value });
+                            const { data } =  await axios.post('<?= base_url('api/checkOut') ?>', { data: clientCart, customer: result.value, dateInoive: $('#dateInput').val() });
                             window.location.href = '<?= base_url('home/billing') ?>/' + data.billUrl;
                         }else{
                             Swal.fire({
@@ -314,7 +339,7 @@
                     }
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                const { data } =  await axios.post('<?= base_url('api/checkOut') ?>', { data: clientCart });
+                const { data } =  await axios.post('<?= base_url('api/checkOut') ?>', { data: clientCart, dateInoive: $('#dateInput').val() });
                 console.log(data);
                 window.location.href = '<?= base_url('home/billing') ?>/' + data.billUrl;
             }

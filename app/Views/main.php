@@ -15,7 +15,14 @@
     <link href="<?=site_url('public/assets/fonts/fontawesome/css/fontawesome-all.min.css')?>" type="text/css" rel="stylesheet">
     <link href="<?=site_url('public/assets/css/OverlayScrollbars.css')?>" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="<?=site_url('public/assets/css/custom.css')?>">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Include jQuery Library -->
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery UI Library -->
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -43,7 +50,6 @@
     <?php  echo view('layouts/navbar.php'); ?>   
     <?php  echo view($layouts); ?>
 
-    <script src="<?=site_url('public/assets/js/jquery-2.0.0.min.js')?>" type="text/javascript"></script>
     <script src="<?=site_url('public/assets/js/bootstrap.bundle.min.js')?>" type="text/javascript"></script>
     <script src="<?=site_url('public/assets/js/OverlayScrollbars.js')?>" type="text/javascript"></script>
     <script>
