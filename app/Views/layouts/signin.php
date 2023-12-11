@@ -11,11 +11,11 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" >
+                    <input type="text" class="form-control" id="username" placeholder="กรุณากรอกชื่อผู้ใช้งาน">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password">
+                    <input type="password" class="form-control" id="password" placeholder="กรุณากรอกรหัสผ่าน">
                 </div>
                 <button type="button" class="btn btn-success btn-lg btn-block th-400" id="signin">เข้าสู่ระบบ</button>
             </form>

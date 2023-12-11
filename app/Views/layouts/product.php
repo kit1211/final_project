@@ -11,6 +11,7 @@
                 <h5 class="card-title th-400">จัดการสินค้าในระบบ</h5>
                 <p class="card-text th-400">พนักงานสามารถจัดการ <b>"เพิ่ม/ลบ/แก้ไข"</b> สินค้าได้ที่นี่</p>
                 <button type="button" class="btn btn-outline-success pl-2 pr-2 mb-3 mt-3" data-toggle="modal" data-target="#staticBackdrop"><i class="bi bi-plus-circle"></i> เพิ่มสินค้า</button>
+                
                 <!-- Add product modal -->
                 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -116,14 +117,14 @@
                     <tbody id="productTableBody">
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
     </div>
 </section>
 
 <script>
-    // Fetch product data from the API
+    
     getProduct();
     function getProduct(){
         document.getElementById("productTableBody").innerHTML = "";
@@ -164,7 +165,7 @@
                     </td>
                     <td>
                         <div class="d-flex align-items-center pt-4">
-                            ${product.pPrice}
+                            ${product.pPrice} บาท
                         </div>
                     </td>
                     <td>
@@ -174,7 +175,6 @@
                         </div>
                     </td>
                 `;
-
                 tableBody.appendChild(newRow);
             });
         })
@@ -206,7 +206,7 @@
                 icon: 'error',
                 text: 'กรุณาเลือกประเภทสินค้า',
             });
-            return; // Stop further execution if productName is empty
+            return; // Stop further execution if productType is empty
         }
 
         // ตรวจสอบว่า productPrice มีค่าหรือไม่ และเป็นตัวเลขหรือไม่
@@ -217,6 +217,7 @@
             });
             return; // Stop further execution if productPrice is not a valid number
         }
+
         // ตรวจสอบว่ามีรูปภาพที่ถูกเลือกหรือไม่
         if (!productImage) {
             Swal.fire({
@@ -225,6 +226,8 @@
             });
             return; // หยุดการดำเนินการหากไม่มีรูปภาพ
         }
+
+
         Swal.fire({
             icon: 'info',
             html: "<h5>คุณต้องการบันทึกข้อมูลหรือไม่ ?</h5>",
@@ -233,18 +236,15 @@
             denyButtonText: `ยกเลิก`
         }).then((result) => {
             if (result.isConfirmed) {
-                
                 // สร้าง FormData เพื่อรวบรวมข้อมูลจากฟอร์ม
                 var formData = new FormData();
                 formData.append('productName', productName);
                 formData.append('productType', productType);
                 formData.append('productPrice', productPrice);
                 formData.append('productImage', productImage);
-                
                 // ทำการส่งข้อมูลไปยังเซิร์ฟเวอร์โดยใช้ Axios
                 axios.post("<?= base_url('api/addProduct') ?>", formData)
                 .then(function(response) {
-                    // console.log(response.data);
                     Swal.fire({
                         icon: response.data.status,
                         text: response.data.msg,
@@ -384,5 +384,4 @@
             console.error(error);
         });
     }
-
 </script>

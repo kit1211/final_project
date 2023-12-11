@@ -11,6 +11,7 @@
                 <h5 class="card-title th-400">จัดการสมาชิกในระบบ</h5>
                 <p class="card-text th-400">พนักงานสามารถจัดการ <b>"เพิ่ม/ลบ/แก้ไข"</b> สมาชิกได้ที่นี่</p>
                 <button type="button" class="btn btn-outline-success pl-2 pr-2 mb-3 mt-3" data-toggle="modal" data-target="#staticBackdrop"><i class="bi bi-plus-circle"></i> เพิ่มสมาชิก</button>
+                
                 <!-- Add product modal -->
                 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -163,6 +164,7 @@
                         </div>
                     </div>
                 </div>
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -174,6 +176,7 @@
                     <tbody id="customerTableBody">
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
@@ -252,6 +255,16 @@
             return; // Stop further execution if productName is empty
         }
 
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(cMail)) {
+            Swal.fire({
+                icon: 'info',
+                text: 'รูปแบบอีเมล์ไม่ถูกต้อง',
+            });
+            return; // Stop further execution if cMail is not a valid email
+        }
+
+
         if (!cPhone) {
             Swal.fire({
                 icon: 'error',
@@ -259,6 +272,15 @@
             });
             return; // Stop further execution if productName is empty
         }
+
+        if (cPhone.length !== 10) {
+            Swal.fire({
+                icon: 'error',
+                text: 'เบอร์โทรศัพท์ต้องประกอบด้วย 10 ตัว',
+            });
+            return; // Stop further execution if cPhone does not have 10 digits
+        }
+
 
         if (!cAddress) {
             Swal.fire({
@@ -323,16 +345,16 @@
         .then(function (response) {
             var res = response.data;
             if(res.status == 'success'){
-                document.getElementById('detail_cCode').value = res.data[0].cCode;
-                document.getElementById('detail_cfName').value = res.data[0].cFname;
-                document.getElementById('detail_clName').value = res.data[0].cLname;
-                document.getElementById('detail_cMail').value = res.data[0].cEmail;
-                document.getElementById('detail_cPhone').value = res.data[0].cPhone;
-                document.getElementById('detail_cAddress').value = res.data[0].cAddress;
-                document.getElementById('detail_cNote').value = res.data[0].cNote;
+                document.getElementById('detail_cCode').value       = res.data[0].cCode;
+                document.getElementById('detail_cfName').value      = res.data[0].cFname;
+                document.getElementById('detail_clName').value      = res.data[0].cLname;
+                document.getElementById('detail_cMail').value       = res.data[0].cEmail;
+                document.getElementById('detail_cPhone').value      = res.data[0].cPhone;
+                document.getElementById('detail_cAddress').value    = res.data[0].cAddress;
+                document.getElementById('detail_cNote').value       = res.data[0].cNote;
                 $('#viewDetail').modal('show');
             }else{
-          
+
             }
         })
         .catch(function (error) {
@@ -349,12 +371,12 @@
         .then(function (response) {
             var res = response.data.data[0];
             if(response.data.status == 'success'){
-                document.getElementById('edit_cfName').value = res.cFname
-                document.getElementById('edit_clName').value = res.cLname
-                document.getElementById('edit_cMail').value = res.cEmail
-                document.getElementById('edit_cPhone').value = res.cPhone
-                document.getElementById('edit_cAddress').value = res.cAddress
-                document.getElementById('edit_cNote').value = res.cNote
+                document.getElementById('edit_cfName').value    = res.cFname
+                document.getElementById('edit_clName').value    = res.cLname
+                document.getElementById('edit_cMail').value     = res.cEmail
+                document.getElementById('edit_cPhone').value    = res.cPhone
+                document.getElementById('edit_cAddress').value  = res.cAddress
+                document.getElementById('edit_cNote').value     = res.cNote
                 $('#edit_customer').modal('show')
             }else{
                 Swal.fire({
@@ -362,9 +384,8 @@
                     text: response.data.msg,
                 });
             }
-        })
-        .catch(function (error) {
-        
+        }).catch(function (error) {
+            
         });
     }
 
@@ -455,8 +476,7 @@
                                 text: res.msg,
                             });
                         }
-                    })
-                    .catch(function (error) {
+                    }).catch(function (error) {
                         // console.log(error);
                         // แสดงข้อความเมื่อเกิดข้อผิดพลาด
                     });

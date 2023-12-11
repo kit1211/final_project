@@ -1,5 +1,5 @@
 <section class="section-content padding-y-sm bg-default mt-5">
-    <div class="container-fluid">
+    <div class="container">
         <nav aria-label="breadcrumb ">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item th-400"><a href="#">DESSLAND</a></li>
@@ -7,7 +7,7 @@
             </ol>
         </nav>
         <div class="row mt-3">
-            <div class="col-md-8 card padding-y-sm card ">
+            <div class="col-md-6 card padding-y-sm card ">
                 <ul class="nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active show" data-toggle="pill" href="#nav-tab-card" onclick="getProductPos('all');">
@@ -30,6 +30,7 @@
                 <!-- products -->
                 <span>
                     <div class="row" id="items">
+                    
                         <!-- <div class="col-md-3">
                                 <figure class="card card-product">
                                     <div class="img-wrap">
@@ -50,10 +51,10 @@
                 </span>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <span id="cart">
-                        <table class="table table-hover shopping-cart-wrap">
+                        <table class="table table-hover shopping-cart-wrap ">
                             <thead class="text-muted">
                                 <tr>
                                     <th scope="col">Item</th>
@@ -236,12 +237,12 @@
         reloadTable();
         document.getElementById("dateInput").value = '';
     }
-
     function getProductPos($productType) {
         var rowItems = document.getElementById("items");
-        rowItems.innerHTML = '';
+        rowItems.innerHTML = '<div class="col-md-12"><div class="alert alert-info th-400 mt-3" role="alert"><i class="bi bi-cloud-download"></i> กำลังโหลด....</div></div>';
         axios.get("<?= base_url('api/getProductPos/') ?>" + $productType)
             .then(function(response) {
+                rowItems.innerHTML = '';
                 var items = response.data[0];
                 items.forEach(function(item, index) {
                     // check if id is not exists in clientData will push
@@ -251,14 +252,15 @@
                     }
 
                     var newRow = document.createElement("div");
-                    newRow.className = "col-12 col-md-6 col-lg-3";
+                    var displayName = item.pName.length > 12 ? item.pName.substring(0, 12) + "..." : item.pName;
+                    newRow.className = "col-12 col-md-6 col-lg-4";
                     newRow.innerHTML = `
                         <figure class="card card-product" data-product-id="${item.pId}" data-product-name="${item.pName}" data-product-price="${item.pPrice}">
-                            <div class="img-wrap">
+                            <div class="img-wrap" title="${item.pName}">
                                 <img src="public/uploads/${item.pImage}">
                             </div>
-                            <figcaption class="info-wrap">
-                                <h5 class="card-title th-300">${item.pName}</h5>
+                            <figcaption class="info-wrap" title="${item.pName}">
+                                <h5 class="card-title th-300" >${displayName}</h5>
                                 <div class="action-wrap">
                                     <div class="price-wrap h5">
                                         <span class="price-new">${item.pPrice}</span>
